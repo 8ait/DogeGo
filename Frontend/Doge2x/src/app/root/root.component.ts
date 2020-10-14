@@ -5,11 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.css']
 })
+
 export class RootComponent implements OnInit {
-
-  constructor() { }
-
   ngOnInit(): void {
   }
-
+  title = "DogeGo";
 }
