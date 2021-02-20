@@ -2,6 +2,9 @@
 {
     using System.Threading.Tasks;
 
+    using DogeGo.Core.Implementations;
+    using DogeGo.Core.Services;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -13,7 +16,7 @@
             ConfigureServices(serviceCollection);
 
             using var serviceProvider = serviceCollection.BuildServiceProvider();
-            var app = serviceProvider.GetService<Startup>();
+            var app = serviceProvider.GetService<App>();
             try
             {
                 await app.Run();
@@ -24,11 +27,16 @@
             }
         }
 
+        /// <summary>
+        ///     Конфигурация сервисов.
+        /// </summary>
+        /// <param name="services"> Сервисы. </param>
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddLogging(conf => conf.AddConsole());
-            services.AddSingleton<BetService>();
-            services.AddTransient<Startup>();
+
+            services.AddScoped<IBetService, BetService>();
+            services.AddTransient<App>();
         }
     }
 }
