@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DogeGo\DogeGo.csproj" />
+    <ProjectReference Include="..\DogeGo.Core\DogeGo.Core.csproj" />
   </ItemGroup>
 
 </Project>

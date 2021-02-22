@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using DogeGo.Bot;
     using DogeGo.Core.Implementations;
     using DogeGo.Core.Services;
 
@@ -16,10 +17,12 @@
             ConfigureServices(serviceCollection);
 
             using var serviceProvider = serviceCollection.BuildServiceProvider();
-            var app = serviceProvider.GetService<App>();
+            var app = serviceProvider.GetService<IApp>();
+            var bot = serviceProvider.GetService<TelegramBot>();
             try
             {
-                await app.Run();
+                app.Run();
+                await bot.TryMakeBet();
             }
             finally
             {
@@ -36,7 +39,8 @@
             services.AddLogging(conf => conf.AddConsole());
 
             services.AddScoped<IBetService, BetService>();
-            services.AddTransient<App>();
+            services.AddSingleton<IApp, App>();
+            services.AddSingleton<TelegramBot>();
         }
     }
 }

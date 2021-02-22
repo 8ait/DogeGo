@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeGo", "DogeGo\DogeGo.csproj", "{94294046-2F8A-47D5-AF45-87D2C4E7285D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeGo.Core", "DogeGo.Core\DogeGo.Core.csproj", "{9EDD42A6-E788-4BD6-9866-4052972CBD5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeGo.Core", "DogeGo.Core\DogeGo.Core.csproj", "{9EDD42A6-E788-4BD6-9866-4052972CBD5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeGo.Bot", "DogeGo.Bot\DogeGo.Bot.csproj", "{E4ED4E85-47DB-4EEC-852E-4AEB9E75B3E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeGo.Bot", "DogeGo.Bot\DogeGo.Bot.csproj", "{E4ED4E85-47DB-4EEC-852E-4AEB9E75B3E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogeGo.Models", "DogeGo.Models\DogeGo.Models.csproj", "{57C66C73-2D46-4AAF-9713-385F346E8752}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E4ED4E85-47DB-4EEC-852E-4AEB9E75B3E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4ED4E85-47DB-4EEC-852E-4AEB9E75B3E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4ED4E85-47DB-4EEC-852E-4AEB9E75B3E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C66C73-2D46-4AAF-9713-385F346E8752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C66C73-2D46-4AAF-9713-385F346E8752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C66C73-2D46-4AAF-9713-385F346E8752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C66C73-2D46-4AAF-9713-385F346E8752}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

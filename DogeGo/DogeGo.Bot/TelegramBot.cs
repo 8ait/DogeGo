@@ -1,6 +1,10 @@
 ﻿namespace DogeGo.Bot
 {
     using System;
+    using System.Threading.Tasks;
+
+    using DogeGo.Core.Services;
+    using DogeGo.Models;
 
     /// <summary>
     /// Бот в телеграмме.
@@ -9,22 +13,27 @@
     {
         private readonly Random _rand;
 
-        private readonly App _app;
+        /// <summary>
+        /// DogeGo приложение.
+        /// </summary>
+        private readonly IApp _app;
 
         /// <summary>
         /// Конструктор.
         /// </summary>
-        public TelegramBot()
+        public TelegramBot(IApp app)
         {
-
+            _rand = new Random();
+            _app = app;
         }
 
         //TODO: Mock.
-        public async void TryMakeBet()
+        public async Task TryMakeBet()
         {
             while (true)
             {
-
+                _app.MakeBet(new Bet());
+                await Task.Delay(_rand.Next(50, 2000));
             }
         }
     }

@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    using DogeGo.Core.Models;
+    using DogeGo.Models;
 
     /// <summary>
     /// Сервис для работы со ставками.
