@@ -5,7 +5,10 @@
     using DogeGo.Bot;
     using DogeGo.Core.Implementations;
     using DogeGo.Core.Services;
+    using DogeGo.Models.DataBase;
+    using DogeGo.Utils;
 
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -36,9 +39,13 @@
         /// <param name="services"> Сервисы. </param>
         private static void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = ConfigurationManager.Configuration.GetValue<string>("ConnectionString");
             services.AddLogging(conf => conf.AddConsole());
 
+            services.AddDogeGoDatabase(connectionString);
+
             services.AddScoped<IBetService, BetService>();
+            services.AddScoped<IRoundService, RoundService>();
             services.AddSingleton<IApp, App>();
             services.AddSingleton<TelegramBot>();
         }
