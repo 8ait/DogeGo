@@ -1,16 +1,18 @@
 ﻿namespace DogeGo.Models
 {
+    using System.Collections.Generic;
+
     using DogeGo.Models.Base;
 
     /// <summary>
     /// Игрок.
     /// </summary>
-    public class Player: BaseEntity
+    public class User
     {
         /// <summary>
         /// Уникальный идентификатор.
         /// </summary>
-        public string Id { get; set; }
+        public string TelegramId { get; set; }
 
         /// <summary>
         /// Адрес криптовалютного кошелька.
@@ -18,9 +20,14 @@
         public byte[] CryptoAddress { get; set; }
 
         /// <summary>
-        /// Приватный ключ доступа к кошельку.
+        /// Баланс пользователя.
         /// </summary>
-        public byte[] PrivateKey { get; set; }
+        public double Balance { get; set; }
+
+        /// <summary>
+        /// Ставки пользователя.
+        /// </summary>
+        public List<Bet> Bets { get; set; }
 
         /// <summary>
         /// Получить баланс кошелька.

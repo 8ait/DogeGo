@@ -18,5 +18,19 @@
         /// </summary>
         public double Value { get; set; }
 
+        /// <summary>
+        /// Результат к балансу.
+        /// </summary>
+        public double Result { get; set; }
+
+        /// <summary>
+        /// Ставка на раунд.
+        /// </summary>
+        public Round Round { get; set; }
+
+        /// <summary>
+        /// Пользователь сделавший ставку.
+        /// </summary>
+        public User User { get; set; }
     }
 }

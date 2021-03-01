@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Security.Cryptography;
+    using System.Text;
     using System.Threading.Tasks;
 
     using DogeGo.Core.Services;
@@ -28,6 +30,11 @@
         private IBetService _betService;
 
         /// <summary>
+        /// Сервис для рабоыт с раундами.
+        /// </summary>
+        private IRoundService _roundService;
+
+        /// <summary>
         /// Список с задачами на ставки каждого рануда.
         /// </summary>
         private List<Task> _betTasks = new List<Task>();
@@ -38,13 +45,23 @@
         private bool _isBetting;
 
         /// <summary>
+        /// Текущий раунд.
+        /// </summary>
+        private Round _round;
+
+        /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="logger"> Логгер. </param>
-        public App(ILogger<App> logger, IBetService betService)
+        /// <param name="betService"> Сервис для работы со ставками. </param>
+        /// <param name="roundService"> Сервис для работы с раундами. </param>
+        public App(ILogger<App> logger, 
+            IBetService betService, 
+            IRoundService roundService)
         {
             _logger = logger;
             _betService = betService;
+            _roundService = roundService;
 
             var roundTime = ConfigurationManager.Configuration.GetValue<int>("RoundTime");
             _time = new TimeSpan(0,0, roundTime);
@@ -56,8 +73,10 @@
             while (true)
             {
                 // Создание раунда.
-                var round = new Round();
-                _logger.LogInformation($"Создание раунда {round.Result}");
+                await MakeRound();
+                _logger.LogInformation($"Создание раунда с числом {_round.Number}");
+                var roundHash = Encoding.ASCII.GetString(_round.Hash);
+                _logger.LogInformation($"Создание раунда с хешем {roundHash}");
                 _betTasks.Clear();
 
                 // Выжидаем время.
@@ -82,6 +101,7 @@
         {
             if (_isBetting)
             {
+                bet.Round = _round;
                 var betTask = _betService.MakeBet(bet);
                 _betTasks.Add(betTask);
             }
@@ -92,30 +112,25 @@
         }
 
         /// <summary>
+        /// Создать раунд.
+        /// </summary>
+        private async Task MakeRound()
+        {
+            var rand = new Random();
+            _round = new Round();
+            _round.Number = rand.NextDouble() * 15;
+            using var sha256 = new SHA256Managed();
+            var byteNumber = Encoding.ASCII.GetBytes(_round.Number.ToString());
+            _round.Hash = sha256.ComputeHash(byteNumber);
+            await _roundService.AddRound(_round);
+        }
+
+        /// <summary>
         /// Произвести расчет ставок.
         /// </summary>
         private void CalculateResults()
         {
             //TODO: Реализовать сервис для расчета ставок.
-        }
-    }
-
-    //TODO: Вынести в отдельные классы.
-    public enum Color
-    {
-        Red,
-        Black,
-        Green
-    }
-
-    public class Round
-    {
-        public Color Result { get; }
-
-        public Round()
-        {
-            var rand = new Random();
-            Result = (Color)rand.Next(0, 3);
         }
     }
 }

@@ -3,7 +3,7 @@
     /// <summary>
     /// Базовая сущность для использования моделей в БД.
     /// </summary>
-    public class BaseEntity
+    public abstract class BaseEntity
     {
         /// <summary>
         /// Идентификатор.

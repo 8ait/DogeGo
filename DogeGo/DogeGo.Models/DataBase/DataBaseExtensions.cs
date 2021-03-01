@@ -14,13 +14,9 @@
         /// <param name="serviceCollection"> Коллекция сервисов. </param>
         /// <param name="connectionString"> Строка подключения. </param>
         /// <returns> Коллекция сервисов. </returns>
-        public static IServiceCollection AddDogeGoDatabase(this IServiceCollection serviceCollection, string connectionString)
+        public static void AddDogeGoDatabase(this IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<DogeGoContext>(options =>
-            {
-                options.UseNpgsql();
-            });
-            return serviceCollection;
+            serviceCollection.AddDbContext<DogeGoContext>(builder => builder.UseNpgsql(connectionString));
         }
     }
 }

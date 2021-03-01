@@ -1,6 +1,7 @@
 ﻿namespace DogeGo.Models
 {
     using System;
+    using System.Collections.Generic;
 
     using DogeGo.Models.Base;
 
@@ -23,5 +24,10 @@
         /// Время создания раунда.
         /// </summary>
         public DateTime CreatedDateTime { get; set; }
+
+        /// <summary>
+        /// Ставки раунда.
+        /// </summary>
+        public List<Bet> Bets { get; set; }
     }
 }
