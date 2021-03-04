@@ -1,6 +1,7 @@
 ﻿namespace DogeGo.Models.DataBase
 {
     using System;
+    using System.Linq;
 
     using DogeGo.Models.DataBase.Mapping;
 
@@ -32,7 +33,24 @@
         public DogeGoContext(DbContextOptions<DogeGoContext> options): base(options)
         {
             Database.EnsureCreated();
-            //Database.Migrate();
+            if (!Users.Any())
+            {
+                Users.Add(new User()
+                {
+                    TelegramId = "admin1",
+                    Balance = 1000,
+                    CryptoAddress = new byte[17]
+                });
+
+                Users.Add(new User()
+                {
+                    TelegramId = "admin2",
+                    Balance = 1000,
+                    CryptoAddress = new byte[17]
+                });
+
+                SaveChanges();
+            }
         }
 
         /// <inheritdoc />
