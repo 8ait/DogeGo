@@ -5,6 +5,7 @@
 
     using DogeGo.Core.Services;
     using DogeGo.Models;
+    using DogeGo.Models.Enums;
 
     /// <summary>
     /// Бот в телеграмме.
@@ -32,8 +33,14 @@
         {
             while (true)
             {
-                _app.MakeBet(new Bet());
-                await Task.Delay(_rand.Next(50, 2000));
+                var bet = new Bet
+                {
+                    Color = (Color) _rand.Next(0, 3),
+                    UserId = _rand.Next(0, 2) == 0 ? "admin1" : "admin2",
+                    Value = _rand.Next(1, 20)
+                };
+                _app.MakeBet(bet);
+                await Task.Delay(_rand.Next(6000, 12000));
             }
         }
     }

@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Расширения для базы данных.
@@ -16,7 +17,11 @@
         /// <returns> Коллекция сервисов. </returns>
         public static void AddDogeGoDatabase(this IServiceCollection serviceCollection, string connectionString)
         {
-            serviceCollection.AddDbContext<DogeGoContext>(builder => builder.UseNpgsql(connectionString));
+            serviceCollection.AddDbContext<DogeGoContext>(builder =>
+            {
+                builder.UseNpgsql(connectionString)
+                    .UseLoggerFactory(new LoggerFactory());
+            });
         }
     }
 }

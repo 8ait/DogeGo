@@ -19,14 +19,24 @@
         public double Value { get; set; }
 
         /// <summary>
-        /// Результат к балансу.
+        /// Ставка расчитана?
         /// </summary>
-        public double Result { get; set; }
+        public bool IsCalculated { get; set; }
+
+        /// <summary>
+        /// Иеднтификатор раунда.
+        /// </summary>
+        public long RoundId { get; set; }
 
         /// <summary>
         /// Ставка на раунд.
         /// </summary>
         public Round Round { get; set; }
+
+        /// <summary>
+        /// Идентификатор пользователя.
+        /// </summary>
+        public string UserId { get; set; }
 
         /// <summary>
         /// Пользователь сделавший ставку.

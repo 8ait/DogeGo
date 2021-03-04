@@ -19,6 +19,7 @@
 
             builder.HasMany(x => x.Bets)
                 .WithOne(x => x.Round)
+                .HasForeignKey(x => x.RoundId)
                 .IsRequired();
         }
     }

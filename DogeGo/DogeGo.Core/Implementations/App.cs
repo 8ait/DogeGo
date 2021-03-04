@@ -74,10 +74,12 @@
             {
                 // Создание раунда.
                 await MakeRound();
-                _logger.LogInformation($"Создание раунда с числом {_round.Number}");
-                var roundHash = Encoding.ASCII.GetString(_round.Hash);
-                _logger.LogInformation($"Создание раунда с хешем {roundHash}");
+                var roundHash = HashToString(_round.Hash);
                 _betTasks.Clear();
+
+                _logger.LogInformation($"Раунд {_round.Id}:{Environment.NewLine}" +
+                                       $"Число раунда: {_round.Number}{Environment.NewLine}" +
+                                       $"Хеш раунда: {roundHash}");
 
                 // Выжидаем время.
                 _logger.LogInformation("Выжидание раунда.");
@@ -90,9 +92,9 @@
                 await Task.WhenAll(_betTasks);
 
                 // Расчет ставок.
-                CalculateResults();
                 _logger.LogInformation("Расчет ставок.");
-                _logger.LogInformation("Раунд окончен.");
+                await _betService.CalculateBetsByRoundId(_round.Id);
+                _logger.LogInformation($"Раунд {_round.Id} окончен.");
             }
         }
 
@@ -101,7 +103,7 @@
         {
             if (_isBetting)
             {
-                bet.Round = _round;
+                bet.RoundId = _round.Id;
                 var betTask = _betService.MakeBet(bet);
                 _betTasks.Add(betTask);
             }
@@ -119,18 +121,26 @@
             var rand = new Random();
             _round = new Round();
             _round.Number = rand.NextDouble() * 15;
+            _round.CreatedDateTime = DateTime.Now;
             using var sha256 = new SHA256Managed();
-            var byteNumber = Encoding.ASCII.GetBytes(_round.Number.ToString());
+            var byteNumber = Encoding.UTF8.GetBytes(_round.Number.ToString());
             _round.Hash = sha256.ComputeHash(byteNumber);
             await _roundService.AddRound(_round);
         }
 
         /// <summary>
-        /// Произвести расчет ставок.
+        /// Преобразовать хеш в строку.
         /// </summary>
-        private void CalculateResults()
+        /// <param name="hash"> Хеш. </param>
+        /// <returns> Строка. </returns>
+        private string HashToString(byte[] hash)
         {
-            //TODO: Реализовать сервис для расчета ставок.
+            var sb = new StringBuilder();
+            foreach (var data in hash)
+            {
+                sb.Append(data.ToString("x2"));
+            }
+            return sb.ToString();
         }
     }
 }

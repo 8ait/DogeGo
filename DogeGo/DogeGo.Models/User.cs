@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using DogeGo.Models.Base;
-
     /// <summary>
     /// Игрок.
     /// </summary>
